@@ -22,6 +22,7 @@ package sqlite3
 #cgo CFLAGS: -DSQLITE_ENABLE_UPDATE_DELETE_LIMIT
 #cgo CFLAGS: -DLIBSQL_ENABLE_WASM_RUNTIME
 #cgo CFLAGS: -Wno-deprecated-declarations
+#cgo LDFLAGS: -L. -llibsql_wasm
 #cgo linux,!android CFLAGS: -DHAVE_PREAD64=1 -DHAVE_PWRITE64=1
 #cgo openbsd CFLAGS: -I/usr/local/include
 #cgo openbsd LDFLAGS: -L/usr/local/lib
