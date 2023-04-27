@@ -58,6 +58,11 @@ _sqlite3_open_v2(const char *filename, sqlite3 **ppDb, int flags, const char *zV
 }
 
 static int
+_libsql_try_initialize_wasm_func_table(sqlite3 *db) {
+	return libsql_try_initialize_wasm_func_table(db);
+}
+
+static int
 _sqlite3_bind_text(sqlite3_stmt *stmt, int n, char *p, int np) {
   return sqlite3_bind_text(stmt, n, p, np, SQLITE_TRANSIENT);
 }
@@ -1464,7 +1469,7 @@ func (d *SQLiteDriver) Open(dsn string) (driver.Conn, error) {
 		return nil, errors.New("sqlite succeeded without returning a database")
 	}
 
-	C.libsql_try_initialize_wasm_func_table(db)
+	C._libsql_try_initialize_wasm_func_table(db)
 
 	exec := func(s string) error {
 		cs := C.CString(s)
